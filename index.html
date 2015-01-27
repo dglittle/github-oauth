@@ -4,6 +4,10 @@
 <script>
 
 $(function () {
+	$(document).ajaxError(function () {
+		alert('something bad happened.. not sure what')
+	})
+	
 	var q = _.getUrlParams()
 	if (q.code) {
 		$.post('http://odoserver.herokuapp.com/rpc', _.json({
@@ -21,7 +25,14 @@ $(function () {
 	                // body = '<script>window.opener.postMessage("' + q.state + ',' + access_token + '", "*"); window.close()<'+'/script>'
 		})
 	} else {
-		$('body').append($('<div/>').text('hello world!'))
+		$('body').append($('<button/>').text('test').click(function () {
+			get_github_access_token('user', function (access_token) {
+				$('body').append($('<div/>').text('got access token: ' + access_token))
+				$.get('https://api.github.com/user?access_token=' + access_token, function (x) {
+					$('body').append($('<div/>').text(_.json(x)))
+				})
+			})
+		}))
 	}
 })
 
