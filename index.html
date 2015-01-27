@@ -12,7 +12,7 @@ $(function () {
 	var q = _.getUrlParams()
 	if (q.code) {
 		$.post('http://odoserver.herokuapp.com/rpc', _.json({
-			site : 'http://dglittle.github.io/github-oauth/callback.html',
+			site : 'http://dglittle.github.io/github-oauth/',
 			func : '' + /* server begin */function (code, req) {
 	            return _.unJson(_.wget('https://github.com/login/oauth/access_token', {
 	                client_id : '9158eb472ff35a7a1141',
