@@ -15,8 +15,8 @@ $(function () {
 			site : 'http://dglittle.github.io/github-oauth/',
 			func : '' + /* server begin */function (code, req) {
 	            return _.unJson(_.wget('https://github.com/login/oauth/access_token', {
-	                client_id : '9158eb472ff35a7a1141',
-	                client_secret : 'b4e3838b34a606e5b84d55ba2d36da7a7f8ddde2',
+	                client_id : GITHUB_OAUTH_CLIENT_ID,
+	                client_secret : GITHUB_OAUTH_CLIENT_SECRET,
 	                code : code
 	            }, null, function (o) { o.headers.Accept = 'application/json' })).access_token
 	        }/* server end */,
