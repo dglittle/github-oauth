@@ -22,8 +22,9 @@ $(function () {
 	        }/* server end */,
 	        args : [q.code]
 	    }), function (access_token) {
-	    	$('body').append($('<div/>').text(access_token))
-	                // body = '<script>window.opener.postMessage("' + q.state + ',' + access_token + '", "*"); window.close()<'+'/script>'
+	    	$('body').append($('<div/>').text('done, this page should close by itself, but feel free to close it'))
+	    	window.opener.postMessage(q.state + ',' + access_token, '*')
+	    	window.close()
 		})
 	} else {
 		$('body').append($('<button/>').text('test').click(function () {
