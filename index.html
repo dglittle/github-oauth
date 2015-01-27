@@ -1,0 +1,28 @@
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://dglittle.github.io/gl519/index.js"></script>
+<script>
+
+$(function () {
+	var q = _.getUrlParams()
+	if (q.code) {
+		$.post('http://odoserver.herokuapp.com/rpc', _.json({
+			site : 'http://dglittle.github.io/github-oauth/callback.html',
+			func : '' + /* server begin */function (code, req) {
+	            return _.unJson(_.wget('https://github.com/login/oauth/access_token', {
+	                client_id : '9158eb472ff35a7a1141',
+	                client_secret : 'b4e3838b34a606e5b84d55ba2d36da7a7f8ddde2',
+	                code : code
+	            }, null, function (o) { o.headers.Accept = 'application/json' })).access_token
+	        }/* server end */,
+	        args : [q.code]
+	    }), function (access_token) {
+	    	$('body').append($('<div/>').text(access_token))
+	                // body = '<script>window.opener.postMessage("' + q.state + ',' + access_token + '", "*"); window.close()<'+'/script>'
+		})
+	} else {
+		$('body').append($('<div/>').text('hello world!'))
+	}
+})
+
+</script>
