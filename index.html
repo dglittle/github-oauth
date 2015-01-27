@@ -13,14 +13,14 @@ $(function () {
 	if (q.code) {
 		$.post('http://odoserver.herokuapp.com/rpc', _.json({
 			site : 'http://dglittle.github.io/github-oauth/',
-			func : '' + /* server begin */function (code, req) {
+			func : '' + /* server begin */function (client_id, client_secret, code, req) {
 	            return _.unJson(_.wget('https://github.com/login/oauth/access_token', {
-	                client_id : GITHUB_OAUTH_CLIENT_ID,
-	                client_secret : GITHUB_OAUTH_CLIENT_SECRET,
+	                client_id : client_id,
+	                client_secret : client_secret,
 	                code : code
 	            }, null, function (o) { o.headers.Accept = 'application/json' })).access_token
 	        }/* server end */,
-	        args : [q.code]
+	        args : [GITHUB_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_SECRET, q.code]
 	    }), function (access_token) {
 	    	$('body').append($('<div/>').text('done, this page should close by itself, but feel free to close it'))
 	    	window.opener.postMessage(q.state + ',' + access_token, '*')
