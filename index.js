@@ -11,7 +11,7 @@
 				messageListener(e)
 			}, false)
 		messageListener = function (e) {
-			if (e.data && (e.data.indexOf(state) == 0))
+			if ((typeof(e.data) == 'string') && (e.data.indexOf(state) == 0))
 				cb(e.data.split(/,/)[1])
 		}
 		var w = window.open('https://github.com/login/oauth/authorize?client_id=' + GITHUB_OAUTH_CLIENT_ID + '&scope=' + scope + '&state=' + state)
